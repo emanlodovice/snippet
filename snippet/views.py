@@ -2,23 +2,24 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import get_object_or_404
+from django.http import Http404
 
-from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 
 from snippet.models import Snippet
 from snippet.serializers import SnippetSerializer
 
 
-@api_view(['GET', 'POST'])
-def snippet_list(request, format=None):
-    if request.method == 'GET':
+class SnippetList(APIView):
+
+    def get(self, request, format=None):
         snippets = Snippet.objects.all()
         serializer = SnippetSerializer(snippets, many=True)
-        return Response(data=serializer.data)
+        return Response(serializer.data)
 
-    elif request.method == 'POST':
+    def post(self, request, format=None):
         serializer = SnippetSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -26,18 +27,26 @@ def snippet_list(request, format=None):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def snippet_detail(request, pk, format=None):
-    snippet = get_object_or_404(Snippet, pk=pk)
-    if request.method == 'GET':
+class SnippetDetail(APIView):
+
+    def get_object(self, pk):
+        snippet = get_object_or_404(Snippet, pk=pk)
+        return snippet
+
+    def get(self, request, pk, format=None):
+        snippet = self.get_object(pk=pk)
         serializer = SnippetSerializer(snippet)
         return Response(serializer.data)
-    elif request.method == 'PUT':
+
+    def put(self, request, pk, format=None):
+        snippet = self.get_object(pk=pk)
         serializer = SnippetSerializer(snippet, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    elif request.method == 'DELETE':
+
+    def delete(self, request, pk, format=None):
+        snippet = self.get_object(pk=pk)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
