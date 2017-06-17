@@ -24,8 +24,3 @@ class Snippet(models.Model):
     class Meta:
         db_table = 'snippet'
         ordering = ('created',)
-
-
-
-
-
