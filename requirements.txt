@@ -21,3 +21,4 @@ six==1.10.0
 traitlets==4.3.2
 wcwidth==0.1.7
 httpie==0.9.9
+coreapi==2.3.1
