@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
-from django.views.generic import TemplateView
 
 from rest_framework import permissions
 from rest_framework.decorators import detail_route
@@ -33,7 +32,3 @@ class SnippetViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-
-class HomeView(TemplateView):
-    template_name = 'home.html'
