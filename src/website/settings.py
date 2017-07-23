@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +25,7 @@ SECRET_KEY = '(p+r&t+619^cr-@+mw@+l&djy(5=per8#e4*2s5!3^$893_ae+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['lowcost-env.cx7ppmgj3i.us-east-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['lowcost-env.cx7ppmgj3i.us-east-2.elasticbeanstalk.com', 'localhost']
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # 3rd party applications
     'rest_framework',
+    'webpack_loader',
 
     'website',
     'snippet'
@@ -126,6 +127,17 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'src/static'),
+)
+
 REST_FRAMEWORK = {
     'PAGE_SIZE': 10
+}
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
 }

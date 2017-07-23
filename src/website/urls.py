@@ -21,6 +21,8 @@ from rest_framework.schemas import get_schema_view
 
 from snippet import views
 
+from website import views as site_views
+
 
 router = DefaultRouter()
 router.register(r'snippets', views.SnippetViewSet)
@@ -30,6 +32,7 @@ schema_view = get_schema_view(title='Code Snippet Repo API')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', site_views.HomeView.as_view()),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls',
                                namespace='rest_framework')),

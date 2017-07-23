@@ -24,7 +24,8 @@ class Snippet(models.Model):
     style = models.CharField(
         choices=STYLE_CHOICES, default='friendly', max_length=100)
     owner = models.ForeignKey(
-        User, related_name='snippets', on_delete=models.CASCADE)
+        User, related_name='snippets', on_delete=models.CASCADE,
+        null=True, blank=True)
     highlighted = models.TextField()
 
     def save(self, *args, **kwargs):
