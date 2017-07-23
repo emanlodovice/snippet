@@ -1,1 +1,1 @@
-{"status":"done","chunks":{"main":[{"name":"main-bundle.js","path":"/home/eman/experiment/snippet/src/static/bundles/main-bundle.js"}]}}
+{"status":"done","chunks":{"main":[{"name":"main_bundle.js","path":"/Users/eman/workspace/snippet/src/static/bundles/main_bundle.js"}]},"error":"ModuleBuildError","message":"Module build failed: Duplicate declaration \"React\"\n\n  1 | import React from 'react';\n> 2 | var React = require('react');\n    |     ^\n  3 | \n  4 | \n  5 | module.exports = React.createClass({\n"}

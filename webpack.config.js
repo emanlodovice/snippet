@@ -8,7 +8,7 @@ module.exports = {
 
     output: {
         path: __dirname + '/src/static/bundles',
-        filename: '[name]-bundle.js'
+        filename: '[name]_bundle.js'
     },
 
     plugins: [
@@ -20,16 +20,26 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
-                query: {
-                    presets:['react']
-                }
-            }
+                loader: 'babel-loader'
+            },
+            {
+                test: /\.js?$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
+            },
+            {
+                test: /\.less$/,
+                loader: 'style-loader'
+            },
+            {
+                test: /\.less$/,
+                loader: 'css-loader'
+            },
+            {
+                test: /\.less$/,
+                loader: 'less-loader'
+            },
         ]
     },
 
-    resolve: {
-        modulesDirectories: ['node_modules', 'bower_components'],
-        extensions: ['.js', '.jsx']
-    }
 };
